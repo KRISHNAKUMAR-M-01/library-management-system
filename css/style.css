@@ -1,0 +1,31 @@
+/*Design Tokens*/
+:root {
+    --lms-navy: #1b2a49;
+    --lms-teal: #0f7c8a
+}
+
+/*Left section of the Login and Registration pages*/
+.auth-left {
+    background-color: var(--lms-navy);
+    color: #fff;
+}
+
+/*Right section of the Login Page*/
+.auth-card {
+    max-width: 26rem;
+}
+
+/*Auth-Button*/
+.btn-lms {
+    background-color: var(--lms-teal);
+    border-color: var(--lms-teal);
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-lms:hover,
+.btn-lms:focus {
+    background-color: var(--lms-navy);
+    border-color: var(--lms-navy);
+    color: #fff;
+}
