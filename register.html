@@ -26,10 +26,10 @@
                     <h3 class="mb-1">Create your account</h3>
                     <p class="text-muted mb-4">It takes less than a minute.</p>
 
-                    <form action="" class="registerForm" novalidate>
+                    <form action="" id="registerForm" novalidate>
                         <div class="mb-3">
                             <label for="fullName" class="form-label">Full name</label>
-                            <input type="email" class="form-control" id="fullName" autocomplete="name" data-validate>
+                            <input type="text" class="form-control" id="fullName" autocomplete="name" data-validate>
                             <div class="invalid-feedback"></div>
                         </div>
 
@@ -43,10 +43,10 @@
                             <label for="department" class="form-label">Department</label>
                             <select id="department" class="form-select" data-validate>
                                 <option value="">Select department</option>
-                                <option>Computer Science</option>
-                                <option>Electronics</option>
-                                <option>Mechanical</option>
-                                <option>Civil</option>
+                                <option value="CSE">Computer Science</option>
+                                <option value="EEE">Electronics</option>
+                                <option value="Mech">Mechanical</option>
+                                <option value="Civil">Civil</option>
                             </select>
                             <div class="invalid-feedback"></div>
                         </div>
@@ -58,14 +58,14 @@
                                 <div class="invalid-feedback"></div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="confirmPassword" class="form-label">Password</label>
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
                                 <input type="password" class="form-control" id="confirmPassword" data-validate autocomplete="new-password">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="term" data-validate>
+                                <input type="checkbox" class="form-check-input" id="terms" data-validate>
                                 <label for="terms" class="form-check-label">I agree to the Library rules</label>
                                 <div class="invalid-feedback"></div>
                             </div>
