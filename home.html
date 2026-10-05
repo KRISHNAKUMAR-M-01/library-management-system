@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books | Campus Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!--Navigation Bar-->
+    <nav class="navbar site-nav navbar-dark">
+        <dic class="container">
+            <span class="navbar-brand">Campus Library</span>
+            <div class="d-flex align-items-center gap-3">
+                <span id="username" class="text-white small">Hi, Krishna</span>
+                <button id="logoutBtn" class="btn btn-outline-light btn-sm">Log out</button>
+            </div>
+        </dic>
+    </nav>
+
+    <!--Hero with search-->
+    <header class="hero">
+        <div class="container">
+            <h1 class="h2 mb-2">Find a Book by department</h1>
+            <p class="mb-4">Choose a department, then click a book to read it as a PDF.</p>
+            <div class="col-md-6 col-lg-4 p-0">
+                <input type="search" id="searchInput" class="form-control form-control-lg" placeholder="Search by title" aria-label="Search books">
+            </div>
+        </div>
+    </header>
+
+    <!--Department tabs and book grid-->
+    <main class="container my-4">
+        <ul id="departmentTabs" class="nav nav-pills gap-2 mb-4"></ul>
+
+        <div id="bookGrid" class="row g-4"></div>
+    </main>
+    
+    <!--Footer-->
+    <footer class="text-center text-muted small py-4">&copy; 2023 Campus Library. All rights reserved.</footer>
+
+    <script src="js/books.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

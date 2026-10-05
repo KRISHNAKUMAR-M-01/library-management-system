@@ -1,6 +1,10 @@
 "use strict";
 
-/* Validation Rules */
+//Name of the key in localStorage where user data is stored
+const USERS_KEY = "lms_users";
+const SESSION_KEY = "lms_session";
+
+//Validation rules for form fields
 const validators = {
     fullName: function(value){
         const name=value.trim();
@@ -70,7 +74,7 @@ const validators = {
     }
 };
 
-/* Validate one input and show the result*/
+//Validate a single field and display error feedback
 function validateField(input) {
 
     const value = input.type === "checkbox" ? input.checked : input.value;
@@ -85,13 +89,28 @@ function validateField(input) {
     return message === "";
 } 
 
-/*Validate the Whole form*/
+//Validate all fields in the form before submission
 function validateForm(form){
     const inputs = Array.from(form.querySelectorAll("[data-validate]"));
     return inputs.map(validateField).every(Boolean);
 }
 
-/*Submit Handler*/
+//storage helper functions
+function getUsers() {
+    return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+}
+
+function saveUsers(users) {
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
+}
+
+function showAlert(type, message) {
+    const alertBox = document.getElementById("formAlert");
+    alertBox.className = "alert alert-" + type;
+    alertBox.textContent = message;
+}
+
+//Handle Login Form Submission
 function handleLogin(event) {
     event.preventDefault();
     const form = event.target;
@@ -99,9 +118,23 @@ function handleLogin(event) {
     if(!validateForm(form)) {
         return;
     }
-    console.log("Form is valid")
+    
+    const email = form.email.value.trim().toLowerCase();
+    const password = form.loginPassword.value;
+    const users = getUsers().find(function(savedUser) {
+        return savedUser.email === email && savedUser.password === password;
+    });
+
+    if(!users) {
+        showAlert("danger", "Invalid email or password.");
+        return;
+    }
+
+    localStorage.setItem(SESSION_KEY, JSON.stringify({name: users.name, email: users.email}));
+
 }
 
+//Handle Registration Form Submission
 function handleRegister(event){
     event.preventDefault();
     const form = event.target;
@@ -110,20 +143,46 @@ function handleRegister(event){
         return;
     }
 
-    console.log("Regisration form is valid");
+    const email = form.email.value.trim().toLowerCase();
+    const users = getUsers();
+
+    if(users.some(function(user){ return user.email === email; })) {
+        showAlert("danger", "Email is already registered.");
+        return;
+    }
+
+    users.push({
+        name: form.fullName.value.trim(),
+        email: email,
+        department: form.department.value,
+        password: form.password.value
+    });
+    saveUsers(users);
+
+    window.location.href = "index.html?registered=1";
 }
 
+//Event listeners for forms and live validation
 document.addEventListener("DOMContentLoaded", function() {
     const loginForm = document.getElementById("loginForm");
     const registerForm = document.getElementById("registerForm");
 
     if(loginForm) {
         loginForm.addEventListener("submit", handleLogin);
+
+        if(new URLSearchParams(window.location.search).has("registered")) {
+            showAlert("success", "Account created successfully! Please log in.");
+        }   
     }
 
     if(registerForm) {
-        registerForm.addEventListener("submit", handleRegister)
+        registerForm.addEventListener("submit", handleRegister);
     }
-})
 
-/* */
+    //Live validation as user types
+    document.querySelectorAll("[data-validate]").forEach(input => {
+        input.addEventListener("input", function() {
+            validateField(input);
+        });
+    });
+})
